@@ -4,6 +4,8 @@ using UnityEngine.AI;
 
 public class AnimalAI2 : MonoBehaviour
 {
+    [Header("Comer")]
+    public float timeComer;
     public FoodItem currentFood;
     public float stopDistanceToFood = 1.5f; // distancia mínima antes del alimento
     public enum State { Pastorear, Huir, SeguirSilbido, Muerto, Quieto }
@@ -111,7 +113,7 @@ public class AnimalAI2 : MonoBehaviour
     {
         animator.SetTrigger("Feed");
         agent.isStopped = true;
-        yield return new WaitForSeconds(5f); // duración anim alimentarse
+        yield return new WaitForSeconds(timeComer); // duración anim alimentarse
         
         // Aquí se debería avisar al objeto alimento que quedó vacío (no implementado)
         if (currentFood != null)
