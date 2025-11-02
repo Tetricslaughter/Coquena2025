@@ -22,13 +22,14 @@ public class HunterAI : MonoBehaviour
     public Transform shootPoint;
     public Transform aimTarget;
     public GameObject bulletPrefab;       
-    public float aimDuration = 3f;
+    public float aimDuration = 4.5f;
     private float aimTimer;
 
     Transform playerPos;
+   
     private void Awake()
     {
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
         playerPos = GameObject.FindGameObjectWithTag("Player").transform;
     }
     void Start()
@@ -40,7 +41,7 @@ public class HunterAI : MonoBehaviour
 
     void Update()
     {
-        
+        Debug.Log(animator ==null);
         switch (currentState)
         {
             case HunterState.Patrol: Patrol(); break;
@@ -68,23 +69,21 @@ public class HunterAI : MonoBehaviour
             if (aimTimer <= 0)
             {
 
-                agent.isStopped = false;
+                
                 Debug.Log("Shooting");
+                animator.ResetTrigger("Aim");
+                animator.SetTrigger("Reload");
                 currentState = HunterState.Shoot;
 
             }
-            if (Vector3.Distance(transform.position, targetAnimal.position) > shootRange)
+                      
+            if (!targetAnimal || Vector3.Distance(transform.position, targetAnimal.position) > shootRange)
             {
                 aimTimer = aimDuration;
                 agent.isStopped = false;
                 aimTimer = aimDuration;
-                currentState = HunterState.Patrol;
-            }
-            if (!targetAnimal)
-            {
-                aimTimer = aimDuration;
-                agent.isStopped = false;
-                aimTimer = aimDuration;
+                animator.SetTrigger("Walk");
+                animator.ResetTrigger("Aim");
                 currentState = HunterState.Patrol;
             }
         }
@@ -95,8 +94,15 @@ public class HunterAI : MonoBehaviour
     {
         aimTimer = aimDuration;
         GameObject bullet = Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation);
-        bullet.transform.LookAt(aimTarget);        
-        currentState = HunterState.Patrol;
+        bullet.transform.LookAt(aimTarget);
+        if (!targetAnimal || Vector3.Distance(transform.position, targetAnimal.position) > shootRange)
+        {
+            currentState = HunterState.Patrol;
+        }
+        else
+        {
+            currentState = HunterState.Aim;
+        }
     }
    
     void Patrol()
@@ -141,6 +147,8 @@ public class HunterAI : MonoBehaviour
         {
             aimTimer = stunDuration;
             aimTarget = targetAnimal;
+            animator.SetTrigger("Aim");
+            animator.ResetTrigger("Walk");
             currentState = HunterState.Aim;
             agent.isStopped = true;           
         }
