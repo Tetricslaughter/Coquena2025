@@ -41,7 +41,7 @@ public class HunterAI : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(animator ==null);
+        //Debug.Log(animator ==null);
         switch (currentState)
         {
             case HunterState.Patrol: Patrol(); break;
