@@ -28,7 +28,7 @@ public class HunterAI : MonoBehaviour
     Transform playerPos;
     private void Awake()
     {
-
+        animator = GetComponent<Animator>();
         playerPos = GameObject.FindGameObjectWithTag("Player").transform;
     }
     void Start()
@@ -101,19 +101,23 @@ public class HunterAI : MonoBehaviour
    
     void Patrol()
     {
-        if (agent.remainingDistance < 0.4f)
-            GoToNextPoint();
-
-        Collider[] hits = Physics.OverlapSphere(transform.position, visionRange);
-        foreach (Collider hit in hits)
+        if (currentState != HunterState.Stunned && currentState != HunterState.Scared) 
         {
-            if (hit.CompareTag("Animal"))
+            if (agent.remainingDistance < 0.4f)
+                GoToNextPoint();
+
+            Collider[] hits = Physics.OverlapSphere(transform.position, visionRange);
+            foreach (Collider hit in hits)
             {
-                targetAnimal = hit.transform;
-                currentState = HunterState.Chase;
-                break;
+                if (hit.CompareTag("Animal"))
+                {
+                    targetAnimal = hit.transform;
+                    currentState = HunterState.Chase;
+                    break;
+                }
             }
         }
+        
     }
 
     void GoToNextPoint()
