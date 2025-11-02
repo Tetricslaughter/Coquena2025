@@ -5,8 +5,8 @@ public class PlayerPhysics
 {
     [Header("Gravedad y salto")]
     public float gravity = -9.81f;
-    public float fallMultiplier = 0f;
-    public float jumpForce = 3f;
+    public float fallMultiplier = 1f;
+    //public float jumpForce = 3f;
 
     private Vector3 velocity;
     private bool isGrounded;
@@ -14,7 +14,7 @@ public class PlayerPhysics
     /// <summary>
     /// Aplica gravedad, salto y caída personalizada.
     /// </summary>
-    public Vector3 UpdatePhysics(CharacterController controller, bool jumpPressed)
+    public Vector3 UpdatePhysics(CharacterController controller)
     {
         isGrounded = controller.isGrounded;
 
@@ -23,7 +23,7 @@ public class PlayerPhysics
             velocity.y = -2f;
 
         // Salto
-        if (jumpPressed && isGrounded)
+        //if (jumpPressed && isGrounded)
             //velocity.y = Mathf.Sqrt(jumpForce * -2f * gravity);
 
         // Control de caída
