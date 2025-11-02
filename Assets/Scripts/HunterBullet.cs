@@ -1,10 +1,14 @@
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class HunterBullet : MonoBehaviour
 {
     public float speed = 20f;
     public float lifeTime = 5f;
-    
+
+
 
     private void Start()
     {
@@ -22,9 +26,12 @@ public class HunterBullet : MonoBehaviour
         if (other.CompareTag("Animal"))
         {
             //Daño al animal
+            other.GetComponent<AnimalAI2>().ReceiveShot();
 
             Destroy(gameObject);
         }
     }
-        
+
+    
+
 }   
