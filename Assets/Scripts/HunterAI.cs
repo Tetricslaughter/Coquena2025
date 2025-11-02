@@ -5,7 +5,7 @@ public class HunterAI : MonoBehaviour
 {
     public enum HunterState { Patrol, Chase, Distracted, Scared,Aim,Shoot,Stunned }
     public HunterState currentState = HunterState.Patrol;
-
+    Animator animator;
     public Transform[] patrolPoints;
     public float visionRange = 15f;
     public float hearingRange = 20f;
@@ -28,6 +28,7 @@ public class HunterAI : MonoBehaviour
     Transform playerPos;
     private void Awake()
     {
+
         playerPos = GameObject.FindGameObjectWithTag("Player").transform;
     }
     void Start()
@@ -50,41 +51,44 @@ public class HunterAI : MonoBehaviour
             case HunterState.Shoot:Shoot(); break;
             case HunterState.Stunned:Stunned(); break;
         }
-        if(Input.GetMouseButtonDown(0))
-        {
-           EnterDistractedState();
-        }
+        //if(Input.GetMouseButtonDown(0))
+        //{
+        //   EnterDistractedState();
+        //}
     }
     void Aim() 
     {
-        Debug.Log("Aiming");
-        
-        agent.isStopped = true;
-        Turn();
+        if (currentState != HunterState.Stunned && currentState != HunterState.Scared) 
+        {
+            Debug.Log("Aiming");
+            agent.isStopped = true;
+            Turn();
 
-        aimTimer -= Time.deltaTime;
-        if (aimTimer <= 0)
-        {
-                          
-            agent.isStopped = false;
-            Debug.Log("Shooting");
-            currentState = HunterState.Shoot;
-            
+            aimTimer -= Time.deltaTime;
+            if (aimTimer <= 0)
+            {
+
+                agent.isStopped = false;
+                Debug.Log("Shooting");
+                currentState = HunterState.Shoot;
+
+            }
+            if (Vector3.Distance(transform.position, targetAnimal.position) > shootRange)
+            {
+                aimTimer = aimDuration;
+                agent.isStopped = false;
+                aimTimer = aimDuration;
+                currentState = HunterState.Patrol;
+            }
+            if (!targetAnimal)
+            {
+                aimTimer = aimDuration;
+                agent.isStopped = false;
+                aimTimer = aimDuration;
+                currentState = HunterState.Patrol;
+            }
         }
-        if (Vector3.Distance(transform.position, targetAnimal.position) > shootRange)
-        {
-            aimTimer = aimDuration;
-            agent.isStopped = false;
-            aimTimer = aimDuration;
-            currentState = HunterState.Patrol;
-        }
-        if (!targetAnimal) 
-        {
-            aimTimer = aimDuration;
-            agent.isStopped = false;
-            aimTimer = aimDuration;
-            currentState = HunterState.Patrol;
-        }
+        
        
     }
     void Shoot() 
