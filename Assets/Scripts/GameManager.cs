@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,25 +17,31 @@ public class GameManager : MonoBehaviour
     
     void Update()
     {
-      //  Debug.Log("Elapsed Time: " + elapsedTime);
+      
         if(elapsedTime >= timeLimit)
         {
+            
             Debug.Log("Victory! You have protected the animals.");
             //ir a pantalla de victoria
+            SceneManager.LoadScene("Victoria");
         }
 
     }
     IEnumerator StartTime() 
     {
+       
         while (true)
         {
+            Debug.Log("Elapsed Time: " + elapsedTime);
             yield return new WaitForSeconds(1);
             elapsedTime += 1;
         }
     }
-    public void TriggerDefeat()
+        public IEnumerator TriggerDefeat()
     {
-        Debug.Log("Defeat! An animal was caught by a hunter.");
+        StopCoroutine(StartTime());
+        yield return new WaitForSeconds(2);
         //ir a pantalla de derrota
+        SceneManager.LoadScene("Derrota");
     }
 }
