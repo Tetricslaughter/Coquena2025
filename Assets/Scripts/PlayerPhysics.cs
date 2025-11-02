@@ -24,7 +24,7 @@ public class PlayerPhysics
 
         // Salto
         if (jumpPressed && isGrounded)
-            velocity.y = Mathf.Sqrt(jumpForce * -2f * gravity);
+            //velocity.y = Mathf.Sqrt(jumpForce * -2f * gravity);
 
         // Control de caída
         if (velocity.y < 0)
