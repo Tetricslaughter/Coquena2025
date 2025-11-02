@@ -46,7 +46,7 @@ public class CoquenaController : MonoBehaviour
         //currentEnergy = maxEnergy;
     }
 
-    private void LateUpdate()
+    private void Update()
     {
         Move();
         //HandleAbilities();
