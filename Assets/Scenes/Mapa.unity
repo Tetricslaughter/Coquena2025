@@ -271,6 +271,10 @@ PrefabInstance:
       propertyPath: 'patrolPoints.Array.data[2]'
       value: 
       objectReference: {fileID: 2133497824}
+    - target: {fileID: 7174630854626446202, guid: bc4dd36ef980ee84d9e6dc3a8432b996, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8087674905236690203, guid: bc4dd36ef980ee84d9e6dc3a8432b996, type: 3}
       propertyPath: m_LocalPosition.x
       value: 336.90573
@@ -314,6 +318,10 @@ PrefabInstance:
     - target: {fileID: 8781523300768092172, guid: bc4dd36ef980ee84d9e6dc3a8432b996, type: 3}
       propertyPath: m_Name
       value: Cazador (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8781523300768092172, guid: bc4dd36ef980ee84d9e6dc3a8432b996, type: 3}
+      propertyPath: m_TagString
+      value: Hunter
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3670,6 +3678,10 @@ PrefabInstance:
       propertyPath: 'patrolPoints.Array.data[2]'
       value: 
       objectReference: {fileID: 745032359}
+    - target: {fileID: 7174630854626446202, guid: bc4dd36ef980ee84d9e6dc3a8432b996, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8087674905236690203, guid: bc4dd36ef980ee84d9e6dc3a8432b996, type: 3}
       propertyPath: m_LocalPosition.x
       value: 399.52536
@@ -3713,6 +3725,10 @@ PrefabInstance:
     - target: {fileID: 8781523300768092172, guid: bc4dd36ef980ee84d9e6dc3a8432b996, type: 3}
       propertyPath: m_Name
       value: Cazador
+      objectReference: {fileID: 0}
+    - target: {fileID: 8781523300768092172, guid: bc4dd36ef980ee84d9e6dc3a8432b996, type: 3}
+      propertyPath: m_TagString
+      value: Hunter
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3896,6 +3912,10 @@ PrefabInstance:
       propertyPath: 'patrolPoints.Array.data[2]'
       value: 
       objectReference: {fileID: 1645323568}
+    - target: {fileID: 7174630854626446202, guid: bc4dd36ef980ee84d9e6dc3a8432b996, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8087674905236690203, guid: bc4dd36ef980ee84d9e6dc3a8432b996, type: 3}
       propertyPath: m_LocalPosition.x
       value: 350.63425
@@ -3939,6 +3959,10 @@ PrefabInstance:
     - target: {fileID: 8781523300768092172, guid: bc4dd36ef980ee84d9e6dc3a8432b996, type: 3}
       propertyPath: m_Name
       value: Cazador (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8781523300768092172, guid: bc4dd36ef980ee84d9e6dc3a8432b996, type: 3}
+      propertyPath: m_TagString
+      value: Hunter
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4362,6 +4386,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1695999576693913228, guid: 3d7c6ddd33d8c614d978db625c0da0cd, type: 3}
+      propertyPath: m_Size.y
+      value: 1.1454887
+      objectReference: {fileID: 0}
+    - target: {fileID: 1695999576693913228, guid: 3d7c6ddd33d8c614d978db625c0da0cd, type: 3}
+      propertyPath: m_Size.z
+      value: 2.502228
+      objectReference: {fileID: 0}
+    - target: {fileID: 1695999576693913228, guid: 3d7c6ddd33d8c614d978db625c0da0cd, type: 3}
+      propertyPath: m_Center.x
+      value: -0.00000012494124
+      objectReference: {fileID: 0}
+    - target: {fileID: 1695999576693913228, guid: 3d7c6ddd33d8c614d978db625c0da0cd, type: 3}
+      propertyPath: m_Center.y
+      value: -0.07274629
+      objectReference: {fileID: 0}
+    - target: {fileID: 1695999576693913228, guid: 3d7c6ddd33d8c614d978db625c0da0cd, type: 3}
+      propertyPath: m_Center.z
+      value: 0.75110644
+      objectReference: {fileID: 0}
     - target: {fileID: 3321100193896761600, guid: 3d7c6ddd33d8c614d978db625c0da0cd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 440.6765
