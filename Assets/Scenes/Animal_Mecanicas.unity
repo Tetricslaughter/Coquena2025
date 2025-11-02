@@ -1502,7 +1502,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &1841115505
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1647,6 +1647,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee31f3f56acda2d4b92dbd34393ac3fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeComer: 0
   currentFood: {fileID: 0}
   stopDistanceToFood: 1.5
   agent: {fileID: 1841115512}
@@ -1830,6 +1831,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 59422272240536671, guid: 30c484221f39e5143a2a5a6d93465690, type: 3}
+      propertyPath: timeComer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 227151653770621750, guid: 30c484221f39e5143a2a5a6d93465690, type: 3}
       propertyPath: m_IsTrigger
       value: 1
@@ -1893,7 +1898,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7256030227316114545, guid: 96236d95bb9d69b409be5028ea0752ee, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.32
+      value: -7.05
       objectReference: {fileID: 0}
     - target: {fileID: 7256030227316114545, guid: 96236d95bb9d69b409be5028ea0752ee, type: 3}
       propertyPath: m_LocalPosition.y

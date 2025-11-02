@@ -17,12 +17,14 @@ public class LeadHand : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        if (other.CompareTag("Animal") || other.CompareTag("Hunter"))
         overlapping.Add(other);
     }
 
     void OnTriggerExit(Collider other)
     {
-        overlapping.Remove(other);
+        if (other.CompareTag("Animal") || other.CompareTag("Hunter"))
+            overlapping.Remove(other);
     }
 
     // Retorna true si se aplicó la acción (para que player consuma energía)
