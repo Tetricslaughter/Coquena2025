@@ -276,9 +276,11 @@ public class AnimalAI2 : MonoBehaviour
         {
             IsInSafeZone = true;
             //CurrentState = State.Pastorear;
+            animator.SetBool("isIdle", true);
+            animator.SetBool("isWalking", false);
             CurrentState = State.Quieto;
             agent.isStopped = true;
-            animator.SetBool("isIdle", true);
+            
             //Debug.Log("En La Zona Segura");
             // El animal se queda en idle y no cambia de estado
         }
@@ -304,7 +306,7 @@ public class AnimalAI2 : MonoBehaviour
         // Detectar alimento
         if (other.CompareTag("Food"))
         {
-            Debug.Log("Food");
+            //Debug.Log("Food");
             FoodItem food = other.GetComponent<FoodItem>();
             if (food != null && !food.isEmpty && currentSub == PastorearSub.Deambular)
             {

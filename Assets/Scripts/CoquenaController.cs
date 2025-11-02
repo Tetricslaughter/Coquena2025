@@ -61,7 +61,7 @@ public class CoquenaController : MonoBehaviour
         bool jumpPressed = Input.GetButtonDown("Jump");
 
         // Calculamos primero la física (gravedad, salto, etc.)
-        Vector3 physicsMovement = playerPhysics.UpdatePhysics(controller, jumpPressed);
+        Vector3 physicsMovement = playerPhysics.UpdatePhysics(controller);
 
         // Dirección del movimiento según la cámara
         Vector3 camForward = cameraTransform.forward;
