@@ -560,6 +560,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee31f3f56acda2d4b92dbd34393ac3fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeComer: 0
   currentFood: {fileID: 0}
   stopDistanceToFood: 1
   agent: {fileID: 715228688637901342}
@@ -846,6 +847,7 @@ GameObject:
   - component: {fileID: 5722582390876001539}
   - component: {fileID: 2176480942013021405}
   - component: {fileID: 4320441848082213192}
+  - component: {fileID: 6448449352858331066}
   m_Layer: 6
   m_Name: Llama
   m_TagString: Animal
@@ -977,6 +979,33 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.026096914, y: 0.06708637, z: 0.030581076}
   m_Center: {x: 0.00046915465, y: -0.0013942795, z: 0.0011671624}
+--- !u!54 &6448449352858331066
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5347844543663276643}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 32
+  m_CollisionDetection: 0
 --- !u!1 &5448431846887968845
 GameObject:
   m_ObjectHideFlags: 0

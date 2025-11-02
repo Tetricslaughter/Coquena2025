@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 7174630854626446202}
   - component: {fileID: 61340005080459247}
   - component: {fileID: 3885261135237431158}
+  - component: {fileID: -1137569416779754620}
   m_Layer: 0
   m_Name: Cazador
   m_TagString: Untagged
@@ -138,6 +139,33 @@ MonoBehaviour:
   aimTarget: {fileID: 0}
   bulletPrefab: {fileID: 9180443755603840382, guid: 132044baf1d20bd4da6126f3c4170368, type: 3}
   aimDuration: 2.68
+--- !u!54 &-1137569416779754620
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8781523300768092172}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 32
+  m_CollisionDetection: 0
 --- !u!1001 &8361952041325870549
 PrefabInstance:
   m_ObjectHideFlags: 0
