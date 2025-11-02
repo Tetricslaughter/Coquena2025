@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
     int animalCount;
     float elapsedTime;
-    int timeLimit = 300; // 5 minutos
+    int timeLimit = 300; 
     void Start()
     {
         elapsedTime = 0f;
@@ -43,5 +43,6 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(2);
         //ir a pantalla de derrota
         SceneManager.LoadScene("Derrota");
+        
     }
 }
