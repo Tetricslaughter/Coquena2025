@@ -7,6 +7,7 @@ TagManager:
   - Animal
   - Hunter
   - SafeZone
+  - Food
   layers:
   - Default
   - TransparentFX

@@ -4,6 +4,9 @@ using System.Collections.Generic;
 [RequireComponent(typeof(Collider))]
 public class LeadHand : MonoBehaviour
 {
+    [Header("Detector de colisiones externo (opcional)")]
+    public Collider detectionCollider; // Collider externo asignable desde el editor
+
     private HashSet<Collider> overlapping = new HashSet<Collider>();
 
     void Awake()

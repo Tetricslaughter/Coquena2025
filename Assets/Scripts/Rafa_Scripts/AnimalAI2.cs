@@ -1,9 +1,11 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class AnimalAI2 : MonoBehaviour
 {
+    public FoodItem currentFood;
+    public float stopDistanceToFood = 1.5f; // distancia mínima antes del alimento
     public enum State { Pastorear, Huir, SeguirSilbido, Muerto, Quieto }
     public enum PastorearSub { Deambular, AcercarseAlAlimento, Alimentarse }
 
@@ -30,7 +32,7 @@ public class AnimalAI2 : MonoBehaviour
     public State CurrentState { get; private set; } = State.Pastorear;
     public PastorearSub currentSub = PastorearSub.Deambular;
 
-    // Para controlar qui�n est� siguiendo la quena (solo uno globalmente)
+    // Para controlar quién está siguiendo la quena (solo uno globalmente)
     private static AnimalAI2 quenaFollower = null;
     public static void SetQuenaFollower(AnimalAI2 a)
     {
@@ -43,11 +45,15 @@ public class AnimalAI2 : MonoBehaviour
     private float originalWalkSpeed;
     private float originalRunSpeed;
 
+    // Almacena última posición de detección de cazador
+    private Vector3 lastHunterPosition;
+
     void Awake()
     {
         CurrentHealth = maxHealth;
         if (agent == null) agent = GetComponent<NavMeshAgent>();
         if (animator == null) animator = GetComponentInChildren<Animator>();
+        if (detectionCollider == null) detectionCollider = GetComponent<SphereCollider>();
         originalWalkSpeed = walkSpeed;
         originalRunSpeed = runSpeed;
         ApplySpeeds();
@@ -74,10 +80,10 @@ public class AnimalAI2 : MonoBehaviour
     #region Pastorear
     void UpdatePastorear()
     {
-        // Implementaci�n de deambular simple: si no tiene objetivo, camina a un punto aleatorio
+        // Implementación de deambular simple: si no tiene objetivo, camina a un punto aleatorio
         if (currentSub == PastorearSub.Deambular)
         {
-            //animator.SetBool("isWalking", true);
+            animator.SetBool("isWalking", true);
             if (!agent.hasPath || agent.remainingDistance < 0.5f)
             {
                 Vector3 randomPoint = transform.position + Random.insideUnitSphere * 10f;
@@ -90,9 +96,10 @@ public class AnimalAI2 : MonoBehaviour
         }
         else if (currentSub == PastorearSub.AcercarseAlAlimento)
         {
-            //animator.SetBool("isWalking", true);
+            animator.SetBool("isWalking", true);
             // Asumimos que hubo set de destino hacia el alimento antes
-            if (agent.remainingDistance <= 1.0f)
+            if (agent.remainingDistance <= stopDistanceToFood + 0.2f)
+            //if (agent.remainingDistance <= 1.0f)
             {
                 currentSub = PastorearSub.Alimentarse;
                 StartCoroutine(DoFeed());
@@ -102,11 +109,22 @@ public class AnimalAI2 : MonoBehaviour
 
     IEnumerator DoFeed()
     {
-        //animator.SetTrigger("Feed");
+        animator.SetTrigger("Feed");
         agent.isStopped = true;
-        yield return new WaitForSeconds(2f); // duraci�n anim alimentarse
+        yield return new WaitForSeconds(5f); // duración anim alimentarse
+        
+        // Aquí se debería avisar al objeto alimento que quedó vacío (no implementado)
+        if (currentFood != null)
+        {
+            FoodItem food = currentFood.GetComponent<FoodItem>();
+
+            // Solo si el alimento existe y no está vacío
+            if (food != null && !food.isEmpty)
+            {
+                food.Consume(); // el alimento se vacía y empieza su recarga
+            }
+        }
         agent.isStopped = false;
-        // Aqu� se deber�a avisar al objeto alimento que qued� vac�o (no implementado)
         currentSub = PastorearSub.Deambular;
     }
     #endregion
@@ -122,8 +140,8 @@ public class AnimalAI2 : MonoBehaviour
 
     IEnumerator DoHuir(Vector3 fromPosition)
     {
-        //animator.SetBool("isRunning", true);
-        // direcci�n opuesta
+        animator.SetBool("isRunning", true);
+        // dirección opuesta
         Vector3 dir = (transform.position - fromPosition).normalized;
         Vector3 runTarget = transform.position + dir * 8f;
         NavMeshHit hit;
@@ -135,7 +153,7 @@ public class AnimalAI2 : MonoBehaviour
         yield return new WaitForSeconds(runDuration);
 
         agent.speed = walkSpeed;
-        //animator.SetBool("isRunning", false);
+        animator.SetBool("isRunning", false);
         CurrentState = State.Pastorear;
         currentSub = PastorearSub.Deambular;
     }
@@ -153,7 +171,7 @@ public class AnimalAI2 : MonoBehaviour
         CurrentState = State.SeguirSilbido;
         agent.isStopped = false;
         agent.speed = walkSpeed;
-        //animator.SetBool("isWalking", true);
+        animator.SetBool("isWalking", true);
     }
 
     public void ExitFollowWhistle()
@@ -183,6 +201,7 @@ public class AnimalAI2 : MonoBehaviour
     #region Damage / Heal
     public void ReceiveShot()
     {
+        Debug.Log("Recibio el disparo");
         if (IsDead || IsInSafeZone) return;
 
         // si recibe primer disparo: reducir velocidades
@@ -199,7 +218,7 @@ public class AnimalAI2 : MonoBehaviour
 
     Vector3 GetLastKnownThreatPosition()
     {
-        // simplificaci�n: usamos transform hacia atr�s (no hay info del cazador aqu�)
+        // simplificación: usamos transform hacia atrás (no hay info del cazador aquí)
         return transform.position - transform.forward * 2f;
     }
 
@@ -243,8 +262,8 @@ public class AnimalAI2 : MonoBehaviour
         IsInSafeZone = false;
         CurrentState = State.Muerto;
         agent.isStopped = true;
-        //animator.SetTrigger("Die");
-        // Opcional: desactivar collider, reputaci�n, etc.
+        animator.SetTrigger("Die");
+        // Opcional: desactivar collider, reputación, etc.
     }
     #endregion
 
@@ -257,11 +276,66 @@ public class AnimalAI2 : MonoBehaviour
             //CurrentState = State.Pastorear;
             CurrentState = State.Quieto;
             agent.isStopped = true;
-            //animator.SetBool("isIdle", true);
+            animator.SetBool("isIdle", true);
             //Debug.Log("En La Zona Segura");
             // El animal se queda en idle y no cambia de estado
         }
 
+    }
+    #endregion
+
+    #region Detection Logic (🔍 NUEVO)
+    void OnTriggerEnter(Collider other)
+    {
+        if (IsDead || IsInSafeZone) return;
+        if (CurrentState == State.Huir || CurrentState == State.SeguirSilbido) return;
+
+        // Detectar cazador
+        if (other.CompareTag("Hunter"))
+        {
+            Debug.Log("Hunter");
+            lastHunterPosition = other.transform.position;
+            StartHuir(lastHunterPosition);
+            return;
+        }
+
+        // Detectar alimento
+        if (other.CompareTag("Food"))
+        {
+            Debug.Log("Food");
+            FoodItem food = other.GetComponent<FoodItem>();
+            if (food != null && !food.isEmpty && currentSub == PastorearSub.Deambular)
+            {
+                currentFood = food;
+                //Vector3 targetPos = food.transform.position;
+
+                // Dirección hacia el alimento
+                Vector3 dirToFood = (food.transform.position - transform.position).normalized;
+
+                // Calculamos un punto cercano al alimento pero dejando una distancia antes
+                Vector3 stopPoint = food.transform.position - dirToFood * stopDistanceToFood;
+                NavMeshHit hit;
+                if (NavMesh.SamplePosition(stopPoint, out hit, 10f, NavMesh.AllAreas))
+                {
+                    agent.SetDestination(hit.position);
+                    currentSub = PastorearSub.AcercarseAlAlimento;
+                }
+            }
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        // Evita detección repetida si ya está alimentándose o huyendo
+        if (CurrentState != State.Pastorear) return;
+        if (currentSub != PastorearSub.Deambular) return;
+
+        // Si aparece un cazador cerca mientras pastorea → huye
+        if (other.CompareTag("Hunter"))
+        {
+            lastHunterPosition = other.transform.position;
+            StartHuir(lastHunterPosition);
+        }
     }
     #endregion
 }
