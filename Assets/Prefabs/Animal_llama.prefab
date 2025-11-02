@@ -504,7 +504,7 @@ GameObject:
   - component: {fileID: 227151653770621750}
   m_Layer: 6
   m_Name: Animal_llama
-  m_TagString: Untagged
+  m_TagString: Animal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -560,6 +560,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee31f3f56acda2d4b92dbd34393ac3fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeComer: 0
   currentFood: {fileID: 0}
   stopDistanceToFood: 1
   agent: {fileID: 715228688637901342}

@@ -4,6 +4,7 @@ using UnityEngine.AI;
 
 public class AnimalAI2 : MonoBehaviour
 {
+    GameManager gameManager;
     [Header("Comer")]
     public float timeComer;
     public FoodItem currentFood;
@@ -52,6 +53,7 @@ public class AnimalAI2 : MonoBehaviour
 
     void Awake()
     {
+        gameManager = FindFirstObjectByType<GameManager>();
         CurrentHealth = maxHealth;
         if (agent == null) agent = GetComponent<NavMeshAgent>();
         if (animator == null) animator = GetComponentInChildren<Animator>();
@@ -265,6 +267,7 @@ public class AnimalAI2 : MonoBehaviour
         CurrentState = State.Muerto;
         agent.isStopped = true;
         animator.SetTrigger("Die");
+        gameManager.StartCoroutine(gameManager.TriggerDefeat());
         // Opcional: desactivar collider, reputación, etc.
     }
     #endregion
